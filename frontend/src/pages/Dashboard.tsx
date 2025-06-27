@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, CircularProgress, Alert } from '@mui/material';
 import axios from 'axios';
-import AISummary, { TaskForAI } from '../components/AISummary';
+import AISummary, { type TaskForAI } from '../components/AISummary';
 
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -30,8 +30,9 @@ const Dashboard: React.FC = () => {
       try {
         const res = await axios.get(`${API_URL}/tasks/`, { withCredentials: true });
         // Map backend tasks to TaskForAI
+        const data = res.data as any[];
         setTasks(
-          res.data.map((t: any) => ({
+          data.map((t: any) => ({
             title: t.title,
             description: t.description,
             status: t.status,

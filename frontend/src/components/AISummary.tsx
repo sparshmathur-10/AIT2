@@ -32,7 +32,8 @@ const AISummary: React.FC<AISummaryProps> = ({ tasks }) => {
         { tasks },
         { withCredentials: true }
       );
-      setSummary(res.data.summary);
+      const data = res.data as { summary: string };
+      setSummary(data.summary);
     } catch (err: any) {
       setError(err?.response?.data?.error || 'Failed to get AI summary.');
     } finally {
